@@ -117,11 +117,27 @@ func (s *Set) Difference(other *Set) *Set {
 }
 
 // SymmetricDifference is the set of all elements in s and other which
-// are not also in their intersection. More simply: any element in s not found in other and vice versa.
+// are not also in their intersection. More simply: any element in s
+// not found in other and vice versa. Also understood as the union
+// without the intersection.
 // Time O(n)
 // Space O(n)
 func (s *Set) SymmetricDifference(other *Set) *Set {
-	return s
+	out := NewSet()
+
+	s.Each(func(str string) {
+		if !other.Contains(str) {
+			out.Add(str)
+		}
+	})
+
+	other.Each(func(str string) {
+		if !s.Contains(str) {
+			out.Add(str)
+		}
+	})
+
+	return out
 }
 
 // IsSubsetOf tests whether s is a subset of other
@@ -135,8 +151,4 @@ func (s *Set) IsSubsetOf(other *Set) bool {
 	}
 
 	return true
-}
-
-func (s *Set) Product(other Set) *Set {
-	return s
 }
