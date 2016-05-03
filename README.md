@@ -59,7 +59,7 @@ with the following goals:
 ## <a name="why-go"></a> Why Go?
 
 I chose Go for reasons which FP advocates may disagree; however, what's most
-important is what **I** learn and that I'm having fun.
+important is what I learn and having fun.
 
 Go's lack of generics has inclined me to implement against concrete,
 often primitive, types rather than using `interface{}` for polymorphim.
@@ -76,12 +76,12 @@ or `string` makes testing easy and concise.
 ## <a name="why-haskell"></a> Why Haskell?
 
 I chose Haskell for reasons which Go advocates may disagree; however,
-what's most important is what **I** learn and that I'm having fun.
+what's most important is what I learn and having fun.
 
 Haskell represents interesting challenges as a pure language: not all
 common algorithms/data structures have a 1:1 mapping to Haskell and when
-they do the complexity will often be much worse due to the ubiquity of
-linked list. In some cases I ignore the inefficiency in favor of easy
+they do the complexity is often worse due to the ubiquity of
+linked lists. In some cases I ignore the inefficiency in favor of easy
 implementation, in others, time/space complexity are respected with the
 tradeoff of complexity.
 
@@ -107,3 +107,4 @@ No worries, I'm not using affiliate links.
 ## <a name="thank-you"></a> Thank You
 
 * [@deathbob](https://github.com/deathbob) for general feedback and copy editing of README.md
+* [@amosley](https://github.com/amosley) for general feedback and copy editing of README.md
