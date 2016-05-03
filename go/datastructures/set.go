@@ -92,12 +92,20 @@ func (s *Set) Union(other *Set) *Set {
 func (s *Set) Intersection(other *Set) *Set {
 	out := NewSet()
 
-	s.Each(func(str string) {
-		if other.Contains(str) {
-			out.Add(str)
-		}
-	})
-
+	// iterate thru smaller set for performance
+	if s.Cardinality() <= other.Cardinality() {
+		s.Each(func(str string) {
+			if other.Contains(str) {
+				out.Add(str)
+			}
+		})
+	} else {
+		other.Each(func(str string) {
+			if s.Contains(str) {
+				out.Add(str)
+			}
+		})
+	}
 	return out
 }
 
