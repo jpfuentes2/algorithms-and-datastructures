@@ -76,7 +76,7 @@ or `string` makes testing easy and concise.
 ## <a name="why-haskell"></a> Why Haskell?
 
 I chose Haskell for reasons which Go advocates may disagree; however,
-what's most important what **I** learn and that I'm having fun.
+what's most important is what **I** learn and that I'm having fun.
 
 Haskell represents interesting challenges as a pure language: not all
 common algorithms/data structures have a 1:1 mapping to Haskell and when
