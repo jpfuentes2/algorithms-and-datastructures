@@ -1,4 +1,4 @@
-package data_structures
+package datastructures
 
 import (
 	dblList "container/list"

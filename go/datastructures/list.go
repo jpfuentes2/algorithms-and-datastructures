@@ -1,4 +1,4 @@
-package data_structures
+package datastructures
 
 type List interface {
 	Head() *Node

@@ -1,4 +1,4 @@
-package data_structures
+package datastructures
 
 // Set implements an unordered set based on Go's map type
 // The semantics for insert/lookup/remove are amortized O(1)
