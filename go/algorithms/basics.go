@@ -29,9 +29,10 @@ func Reverse(s []int) {
 	}
 }
 
-// BinarySearch does says what it does
+// BinarySearch does a binary search. It assumes the slice is
+// already sorted.
 //
-// Time O(n)
+// Time O(log n)
 func BinarySearch(slice []int, search int) int {
 	min, max := 0, len(slice)-1
 	for min <= max {
