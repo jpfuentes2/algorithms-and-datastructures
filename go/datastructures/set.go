@@ -126,7 +126,7 @@ func (s *Set) SymmetricDifference(other *Set) *Set {
 
 // IsSubsetOf tests whether s is a subset of other
 // Time O(n)
-// Space O(1)
+// Space O(n)
 func (s *Set) IsSubsetOf(other *Set) bool {
 	for str := range s.data {
 		if !other.Contains(str) {

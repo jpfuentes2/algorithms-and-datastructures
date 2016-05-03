@@ -32,15 +32,15 @@ func TestSet(t *testing.T) {
 }
 
 func TestSetUnion(t *testing.T) {
-	set1 := NewSet([]string{"a", "b", "c"}...)
-	set2 := NewSet([]string{"x", "y", "z"}...)
-	union := NewSet([]string{"a", "b", "c", "x", "y", "z"}...)
+	set1 := NewSet("a", "b", "c")
+	set2 := NewSet("x", "y", "z")
+	union := NewSet("a", "b", "c", "x", "y", "z")
 
 	assert.Equal(t, union, set1.Union(set2))
 
-	set1 = NewSet([]string{"a", "b", "c"}...)
-	set2 = NewSet([]string{"a", "b", "z"}...)
-	union = NewSet([]string{"a", "b", "c", "z"}...)
+	set1 = NewSet("a", "b", "c")
+	set2 = NewSet("a", "b", "z")
+	union = NewSet("a", "b", "c", "z")
 
 	assert.Equal(t, union, set1.Union(set2))
 
@@ -50,15 +50,15 @@ func TestSetUnion(t *testing.T) {
 }
 
 func TestSetIntersection(t *testing.T) {
-	set1 := NewSet([]string{"a", "b", "c"}...)
-	set2 := NewSet([]string{"x", "y", "z"}...)
+	set1 := NewSet("a", "b", "c")
+	set2 := NewSet("x", "y", "z")
 	intersect := NewSet()
 
 	assert.Equal(t, intersect, set1.Intersection(set2))
 
-	set1 = NewSet([]string{"a", "b", "c"}...)
-	set2 = NewSet([]string{"a", "b", "z"}...)
-	intersect = NewSet([]string{"a", "b", "c", "z"}...)
+	set1 = NewSet("a", "b", "c")
+	set2 = NewSet("a", "b", "z")
+	intersect = NewSet("a", "b", "c", "z")
 
 	assert.Equal(t, intersect, set1.Union(set2))
 
@@ -68,15 +68,15 @@ func TestSetIntersection(t *testing.T) {
 }
 
 func TestSetDifference(t *testing.T) {
-	set1 := NewSet([]string{"a", "b", "c"}...)
-	set2 := NewSet([]string{"x", "y", "z"}...)
-	diff := NewSet([]string{"a", "b", "c"}...)
+	set1 := NewSet("a", "b", "c")
+	set2 := NewSet("x", "y", "z")
+	diff := NewSet("a", "b", "c")
 
 	assert.Equal(t, diff, set1.Difference(set2))
 
-	set1 = NewSet([]string{"a", "b", "c"}...)
-	set2 = NewSet([]string{"a", "b", "z"}...)
-	diff = NewSet([]string{"c"}...)
+	set1 = NewSet("a", "b", "c")
+	set2 = NewSet("a", "b", "z")
+	diff = NewSet("c")
 
 	assert.Equal(t, diff, set1.Difference(set2))
 
