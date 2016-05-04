@@ -5,6 +5,9 @@ import (
 	"sync"
 )
 
+// ErrEmptyStack is when a stack is unexpectedly empty
+var ErrEmptyStack = errors.New("Stack is empty!")
+
 // Stack is a thread-safe version of the stack abstract data type
 // using a linked list
 type Stack struct {
@@ -36,7 +39,7 @@ func (s *Stack) Pop() (interface{}, error) {
 	defer s.mu.Unlock()
 
 	if s.length == 0 {
-		return nil, errors.New("Pop")
+		return nil, ErrEmptyStack
 	}
 
 	s.length--
@@ -50,7 +53,7 @@ func (s *Stack) Peek() (interface{}, error) {
 	defer s.mu.RUnlock()
 
 	if s.length == 0 {
-		return nil, errors.New("Pop")
+		return nil, ErrEmptyStack
 	}
 
 	return s.list.Head().value, nil

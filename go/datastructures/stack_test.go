@@ -32,3 +32,18 @@ func TestStack(t *testing.T) {
 	assert.True(t, stack.IsEmpty())
 	assert.Equal(t, 0, stack.Len())
 }
+
+func TestErrEmptyStack(t *testing.T) {
+	t.Parallel()
+
+	stack := NewStack()
+	_, err := stack.Pop()
+
+	assert.Error(t, err)
+	assert.Equal(t, ErrEmptyStack, err)
+
+	_, err = stack.Peek()
+
+	assert.Error(t, err)
+	assert.Equal(t, ErrEmptyStack, err)
+}
