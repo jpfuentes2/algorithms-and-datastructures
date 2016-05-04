@@ -17,25 +17,42 @@ func TestQueue(t *testing.T) {
 	assert.False(t, queue.IsEmpty())
 	assert.Equal(t, 1, queue.Len())
 
-	abcs := []string{"a", "b", "c"}
+	abc := []string{"a", "b", "c"}
 	queue = NewQueue()
 
-	for _, letter := range abcs {
+	for i, letter := range abc {
 		queue.Enqueue(letter)
-		// peek, err := stack.Peek()
+		peek, err := queue.Peek()
 
-		// assert.NoError(t, err)
-		// assert.Equal(t, letter, peek)
+		assert.NoError(t, err)
+		assert.Equal(t, abc[i], peek)
 	}
 
-	// assert.Equal(t, 3, stack.Len())
-	// assert.False(t, stack.IsEmpty())
+	assert.Equal(t, 3, queue.Len())
+	assert.False(t, queue.IsEmpty())
 
-	// for _ = range abcs {
-	// 	_, err := stack.Pop()
-	// 	assert.NoError(t, err)
-	// }
+	for i := range abc {
+		actual, err := queue.Dequeue()
 
-	// assert.True(t, stack.IsEmpty())
-	// assert.Equal(t, 0, stack.Len())
+		assert.NoError(t, err)
+		assert.Equal(t, abc[i], actual)
+	}
+
+	assert.True(t, queue.IsEmpty())
+	assert.Equal(t, 0, queue.Len())
+}
+
+func TestErrEmptyQueue(t *testing.T) {
+	t.Parallel()
+
+	queue := NewQueue()
+	_, err := queue.Dequeue()
+
+	assert.Error(t, err)
+	assert.Equal(t, ErrEmptyQueue, err)
+
+	_, err = queue.Peek()
+
+	assert.Error(t, err)
+	assert.Equal(t, ErrEmptyQueue, err)
 }
