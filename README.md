@@ -61,9 +61,9 @@ with the following goals:
 I chose Go for reasons which FP advocates may disagree; however, what's most
 important is what I learn and having fun.
 
-Go's lack of generics has inclined me to implement against concrete,
-often primitive, types rather than using `interface{}` for polymorphim.
-My reasoning: none of the code is meant for production and using `int`
+In some cases I eschew polymorphism by using primitive built-in types
+because there's often no advantage to using `interface{}` for these
+implementations. My reasoning: none of the code is meant for production and using `int`
 or `string` makes testing easy and concise.
 
 > Data dominates. If you've chosen the right data structures and
