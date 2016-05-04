@@ -6,6 +6,18 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
+var (
+	a   = []string{"a"}
+	c   = []string{"c"}
+	cz  = []string{"c", "z"}
+	ab  = []string{"a", "b"}
+	abc = []string{"a", "b", "c"}
+	abz = []string{"a", "b", "z"}
+	xyz = []string{"x", "y", "z"}
+
+	abcxyz = []string{"a", "b", "c", "x", "y", "z"}
+)
+
 func TestSet(t *testing.T) {
 	t.Parallel()
 
@@ -32,106 +44,126 @@ func TestSet(t *testing.T) {
 }
 
 func TestSetUnion(t *testing.T) {
-	set1 := NewSet("a", "b", "c")
-	set2 := NewSet("x", "y", "z")
-	union := NewSet("a", "b", "c", "x", "y", "z")
+	cases := []struct {
+		A        []string
+		B        []string
+		Expected []string
+	}{
+		{abc, xyz, append(xyz, abc...)},
+		{abc, abz, append([]string{"a", "b", "c", "z"}, abc...)},
+		{abc, nil, abc},
+		{nil, abc, abc},
+		{nil, nil, nil},
+	}
 
-	assert.Equal(t, union, set1.Union(set2))
+	for _, tc := range cases {
+		actual := NewSet(tc.A...).Union(NewSet(tc.B...))
+		expected := NewSet(tc.Expected...)
 
-	set1 = NewSet("a", "b", "c")
-	set2 = NewSet("a", "b", "z")
-	union = NewSet("a", "b", "c", "z")
-
-	assert.Equal(t, union, set1.Union(set2))
-
-	empty := NewSet()
-	assert.Equal(t, empty, empty.Union(empty))
-	assert.True(t, empty.IsEmpty())
+		assert.Equal(t, expected, actual)
+		if expected.Cardinality() > 0 {
+			assert.True(t, !actual.IsEmpty())
+		} else {
+			assert.True(t, actual.IsEmpty())
+		}
+	}
 }
 
 func TestSetIntersection(t *testing.T) {
-	set1 := NewSet("a", "b", "c")
-	set2 := NewSet("x", "y", "z")
-	intersect := NewSet()
+	cases := []struct {
+		A        []string
+		B        []string
+		Expected []string
+	}{
+		{abc, xyz, nil},
+		{abc, abz, ab},
+		{abc, a, a},
+		{a, abc, a},
+		{nil, nil, nil},
+	}
 
-	assert.Equal(t, intersect, set1.Intersection(set2))
+	for _, tc := range cases {
+		actual := NewSet(tc.A...).Intersection(NewSet(tc.B...))
+		expected := NewSet(tc.Expected...)
 
-	set1 = NewSet("a", "b", "c")
-	set2 = NewSet("a", "b", "z")
-	intersect = NewSet("a", "b")
-
-	assert.Equal(t, intersect, set1.Intersection(set2))
-
-	// handle case where one set has less elements
-	set1 = NewSet("a")
-	set2 = NewSet("a", "b", "z")
-	intersect = NewSet("a")
-
-	assert.Equal(t, intersect, set1.Intersection(set2))
-
-	empty := NewSet()
-	assert.Equal(t, empty, empty.Intersection(empty))
-	assert.True(t, empty.IsEmpty())
+		assert.Equal(t, expected, actual)
+		if expected.Cardinality() > 0 {
+			assert.True(t, !actual.IsEmpty())
+		} else {
+			assert.True(t, actual.IsEmpty())
+		}
+	}
 }
 
 func TestSetDifference(t *testing.T) {
-	set1 := NewSet("a", "b", "c")
-	set2 := NewSet("x", "y", "z")
-	diff := NewSet("a", "b", "c")
+	cases := []struct {
+		A        []string
+		B        []string
+		Expected []string
+	}{
+		{abc, xyz, abc},
+		{abc, abz, c},
+		{a, a, nil},
+		{nil, nil, nil},
+	}
 
-	assert.Equal(t, diff, set1.Difference(set2))
+	for _, tc := range cases {
+		actual := NewSet(tc.A...).Difference(NewSet(tc.B...))
+		expected := NewSet(tc.Expected...)
 
-	set1 = NewSet("a", "b", "c")
-	set2 = NewSet("a", "b", "z")
-	diff = NewSet("c")
-
-	assert.Equal(t, diff, set1.Difference(set2))
-
-	empty := NewSet()
-	assert.Equal(t, empty, empty.Difference(empty))
-	assert.True(t, empty.IsEmpty())
+		assert.Equal(t, expected, actual)
+		if expected.Cardinality() > 0 {
+			assert.True(t, !actual.IsEmpty())
+		} else {
+			assert.True(t, actual.IsEmpty())
+		}
+	}
 }
 
 func TestSetSymmetricDifference(t *testing.T) {
-	set1 := NewSet("a", "b", "c")
-	set2 := NewSet("x", "y", "z")
-	symm := NewSet("a", "b", "c", "x", "y", "z")
+	cases := []struct {
+		A        []string
+		B        []string
+		Expected []string
+	}{
+		{abc, xyz, abcxyz},
+		{abc, abz, cz},
+		{a, a, nil},
+		{a, nil, a},
+		{nil, a, a},
+		{nil, nil, nil},
+	}
 
-	assert.Equal(t, symm, set1.SymmetricDifference(set2))
+	for _, tc := range cases {
+		actual := NewSet(tc.A...).SymmetricDifference(NewSet(tc.B...))
+		expected := NewSet(tc.Expected...)
 
-	set1 = NewSet("a", "b", "1")
-	set2 = NewSet("a", "b", "2")
-	symm = NewSet("1", "2")
-
-	assert.Equal(t, symm, set1.SymmetricDifference(set2))
-
-	set1 = NewSet("a", "b")
-	set2 = NewSet("a", "b")
-	symm = NewSet()
-
-	assert.Equal(t, symm, set1.SymmetricDifference(set2))
-	assert.True(t, set1.SymmetricDifference(set2).IsEmpty())
+		assert.Equal(t, expected, actual)
+		if expected.Cardinality() > 0 {
+			assert.True(t, !actual.IsEmpty())
+		} else {
+			assert.True(t, actual.IsEmpty())
+		}
+	}
 }
 
 func TestSetIsSubsetOf(t *testing.T) {
-	set1 := NewSet("a", "b", "c")
-	set2 := NewSet("x", "y", "z")
+	cases := []struct {
+		A        []string
+		B        []string
+		Expected bool
+	}{
+		{abc, abc, true},
+		{ab, abc, true},
+		{a, abc, true},
+		{abc, xyz, false},
+		{abc, ab, false},
+		{nil, a, true},
+		{nil, nil, true},
+	}
 
-	assert.False(t, set1.IsSubsetOf(set2))
-	assert.False(t, set2.IsSubsetOf(set1))
-	// set is subset of itself
-	assert.True(t, set1.IsSubsetOf(set1))
-	assert.True(t, set2.IsSubsetOf(set2))
-
-	set1 = NewSet("a", "b", "c")
-	set2 = NewSet("a", "b", "c", "d")
-
-	assert.True(t, set1.IsSubsetOf(set2))
-	assert.False(t, set2.IsSubsetOf(set1))
-
-	set1 = NewSet("a", "b", "c")
-	set2 = NewSet("a", "b", "d")
-
-	assert.False(t, set1.IsSubsetOf(set2))
-	assert.False(t, set2.IsSubsetOf(set1))
+	for _, tc := range cases {
+		actual := NewSet(tc.A...).IsSubsetOf(NewSet(tc.B...))
+		assert.Equal(t, tc.Expected, actual)
+	}
 }
