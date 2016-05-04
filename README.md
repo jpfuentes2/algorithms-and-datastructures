@@ -49,7 +49,7 @@ with the following goals:
     * [Fisher-Yates Shuffle](go/algorithms/basics.go)
     * [In-place Reverse](go/algorithms/basics.go)
     * [Binary Search](go/algorithms/basics.go)
-    * [IsPalindrome: Iterative/Recrusive](go/algorithms/basics.go)
+    * [IsPalindrome: Iterative/Recursive](go/algorithms/basics.go)
   * [Haskell](haskell/algorithms)
     * [Fisher-Yates Shuffle](haskell/algorithms/basics.hs)
     * [In-place Reverse](haskell/algorithms/basics.hs)

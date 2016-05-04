@@ -72,7 +72,7 @@ func IsPalindrome(str string) bool {
 		return true
 	}
 
-	for i := 0; i < n; i++ {
+	for i := 0; i < n/2; i++ {
 		front := str[i]
 		back := str[n-1]
 
