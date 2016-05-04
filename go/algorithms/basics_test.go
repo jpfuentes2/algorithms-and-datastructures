@@ -62,3 +62,29 @@ func TestBinarySearch(t *testing.T) {
 		assert.Equal(t, tc.Expected, actual)
 	}
 }
+
+func TestIsPalindrome(t *testing.T) {
+
+	cases := []struct {
+		String   string
+		Expected bool
+	}{
+		{"level", true},
+		{"sagas", true},
+		{"101", true},
+		{"A", true},
+		{"a", true},
+		{"aa", true},
+		{"", true},
+		{"abc", false},
+		{"sally", false},
+	}
+
+	for _, tc := range cases {
+		actual := IsPalindrome(tc.String)
+		actualRecursive := IsPalindromeRecursive(tc.String)
+
+		assert.Equal(t, tc.Expected, actual)
+		assert.Equal(t, tc.Expected, actualRecursive)
+	}
+}
