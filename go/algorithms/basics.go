@@ -13,6 +13,11 @@ func main() {
 //
 // Time O(n)
 func Shuffle(slice []int) {
+	// base case: cannot shuffle empty or 1-element slice
+	if len(slice) <= 1 {
+		return
+	}
+
 	for i := len(slice) - 1; i > 0; i-- {
 		j := rand.Intn(i + 1)
 		slice[i], slice[j] = slice[j], slice[i]
@@ -23,6 +28,11 @@ func Shuffle(slice []int) {
 //
 // Time O(n)
 func Reverse(s []int) {
+	// base case: cannot reverse empty or 1-element slice
+	if len(s) <= 1 {
+		return
+	}
+
 	for i := len(s)/2 - 1; i >= 0; i-- {
 		opp := len(s) - 1 - i
 		s[i], s[opp] = s[opp], s[i]
