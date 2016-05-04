@@ -44,10 +44,21 @@ func TestBinarySearch(t *testing.T) {
 	t.Parallel()
 
 	nums := []int{1, 2, 3, 4, 5}
-	for i := range nums {
-		assert.Equal(t, i, BinarySearch(nums, i+1))
+
+	cases := []struct {
+		Haystack []int
+		Needle   int
+		Expected int
+	}{
+		{nums, 1, 0},
+		{nums, 3, 2},
+		{nums, 5, 4},
+		{nums, 0, -1},
+		{nums, 6, -1},
 	}
 
-	assert.Equal(t, -1, BinarySearch(nums, 0))
-	assert.Equal(t, -1, BinarySearch(nums, 10))
+	for _, tc := range cases {
+		actual := BinarySearch(tc.Haystack, tc.Needle)
+		assert.Equal(t, tc.Expected, actual)
+	}
 }
