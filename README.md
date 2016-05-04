@@ -83,7 +83,7 @@ common algorithms/data structures have a 1:1 mapping to Haskell and when
 they do the complexity is often worse due to the ubiquity of
 linked lists. In some cases I ignore the inefficiency in favor of easy
 implementation, in others, time/space complexity are respected with the
-tradeoff of complexity.
+tradeoff of inelegant code.
 
 Further, sometimes, I may even use mutation for an imperative approach.
 _Gasp!_
