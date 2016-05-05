@@ -30,30 +30,22 @@ with the following goals:
 4. Implement common/interesting/fundamental algorithms/data structures.
    This, of course, is [practice testing](http://digitalpromise.org/2015/02/07/five-learning-strategies-that-work/#practicetesting),
    another highly effective learning technique when the stakes are low.
-5. Complete 4. in both Haskell & Go. Why? Well, a friend once called me
-   a "try hard." It's true.
+5. Try to provide sufficient documentation, linkes, and resources so
+   others can learn from this code.
 
 ## TOC
 
 * [Why Go?](#why-go)
-* [Why Haskell?](#why-haskell)
 * Data Structures
-  * [Go](go/datastructures)
-    * [SinglyLinkedList](go/datastructures/list.go)
-    * [Queue](go/datastructures/queue.go)
-    * [Stack](go/datastructures/stack.go)
-    * [Set](go/datastructures/set.go)
-  * [Haskell](haskell/datastructures)
+  * [SinglyLinkedList](go/datastructures/list.go)
+  * [Queue](go/datastructures/queue.go)
+  * [Stack](go/datastructures/stack.go)
+  * [Set](go/datastructures/set.go)
 * Algorithms
-  * [Go](go/algorithms)
-    * [Fisher-Yates Shuffle](go/algorithms/basics.go)
-    * [In-place Reverse](go/algorithms/basics.go)
-    * [Binary Search](go/algorithms/basics.go)
-    * [IsPalindrome: Iterative/Recursive](go/algorithms/basics.go)
-  * [Haskell](haskell/algorithms)
-    * [Fisher-Yates Shuffle](haskell/algorithms/basics.hs)
-    * [In-place Reverse](haskell/algorithms/basics.hs)
-    * [Binary Search](haskell/algorithms/basics.hs)
+  * [Fisher-Yates Shuffle](go/algorithms/basics.go)
+  * [In-place Reverse](go/algorithms/basics.go)
+  * [Binary Search](go/algorithms/basics.go)
+  * [IsPalindrome: Iterative/Recursive](go/algorithms/basics.go)
 * [Resources](#resources)
 * [Thank you](#thank-you)
 
@@ -74,26 +66,6 @@ or `string` makes testing easy and concise.
 >
 > -- Rob Pike
 
-## <a name="why-haskell"></a> Why Haskell?
-
-I chose Haskell for reasons which Go advocates may disagree; however,
-what's most important is what I learn and having fun.
-
-Haskell represents interesting challenges as a pure language: not all
-common algorithms/data structures have a 1:1 mapping to Haskell and when
-they do the complexity is often worse due to the ubiquity of
-linked lists. In some cases I ignore the inefficiency in favor of easy
-implementation, in others, time/space complexity are respected with the
-tradeoff of inelegant code.
-
-Further, sometimes, I may even use mutation for an imperative approach.
-_Gasp!_
-
-> In short, Haskell is the world’s finest imperative programming
-> language.
->
-> -- Simon Peyton Jones
-
 ## <a name="resources"></a> Resources
 
 No worries, I'm not using affiliate links.
@@ -103,9 +75,7 @@ No worries, I'm not using affiliate links.
 * [Algorithms Part I, Robert Sedgewick](https://www.youtube.com/watch?v=YIFWCpquoS8&list=PLUX6FBiUa2g4YWs6HkkCpXL6ru02i7y3Q)
 * [Algorithms Part II, Robert Sedgewick](https://www.youtube.com/watch?v=0B745ZPxdBE&list=PLqD_OdMOd_6YixsHkd9f4sNdof4IhIima)
 * [Khan Academy: Algorithms](https://www.khanacademy.org/computing/computer-science/algorithms)
-* [Purely Functional Data Structures](http://www.amazon.com/Purely-Functional-Structures-Chris-Okasaki/dp/0521663504)
 * [Wikibooks Data Structures](https://en.wikibooks.org/wiki/Data_Structures)
-* [Scalacaster by @vkostyukov](https://github.com/vkostyukov/scalacaster)
 
 ## <a name="thank-you"></a> Thank You
 
