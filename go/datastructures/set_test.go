@@ -19,8 +19,6 @@ var (
 )
 
 func TestSet(t *testing.T) {
-	t.Parallel()
-
 	letters := []string{"a", "b", "c"}
 
 	assert.True(t, NewSet().IsEmpty())

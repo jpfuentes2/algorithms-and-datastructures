@@ -7,8 +7,6 @@ import (
 )
 
 func TestQueue(t *testing.T) {
-	t.Parallel()
-
 	queue := NewQueue()
 	assert.True(t, queue.IsEmpty())
 	assert.Equal(t, 0, queue.Len())
@@ -43,8 +41,6 @@ func TestQueue(t *testing.T) {
 }
 
 func TestErrEmptyQueue(t *testing.T) {
-	t.Parallel()
-
 	queue := NewQueue()
 	_, err := queue.Dequeue()
 

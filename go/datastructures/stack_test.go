@@ -7,8 +7,6 @@ import (
 )
 
 func TestStack(t *testing.T) {
-	t.Parallel()
-
 	abcs := []string{"a", "b", "c"}
 	stack := NewStack()
 	assert.True(t, stack.IsEmpty())
@@ -34,8 +32,6 @@ func TestStack(t *testing.T) {
 }
 
 func TestErrEmptyStack(t *testing.T) {
-	t.Parallel()
-
 	stack := NewStack()
 	_, err := stack.Pop()
 

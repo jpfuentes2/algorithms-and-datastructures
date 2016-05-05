@@ -7,8 +7,6 @@ import (
 )
 
 func TestNewList(t *testing.T) {
-	t.Parallel()
-
 	list := SinglyLinkedList{}
 	assert.True(t, list.IsEmpty())
 
@@ -17,8 +15,6 @@ func TestNewList(t *testing.T) {
 }
 
 func TestList(t *testing.T) {
-	t.Parallel()
-
 	abcs := []string{"a", "b", "c"}
 	list := SinglyLinkedList{}
 
