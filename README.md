@@ -68,14 +68,17 @@ or `string` makes testing easy and concise.
 
 ## <a name="resources"></a> Resources
 
-No worries, I'm not using affiliate links.
+### Books/Blogs/etc
 
 * [Introduction to Algorithms, 3rd Edition (CLRS)](http://www.amazon.com/Introduction-Algorithms-Thomas-H-Cormen-ebook/dp/B007CNRCAO/ref=dp_kinw_strp_1)
 * [Algorithms, 4th Edition, Robert Sedgewick, et al.](http://www.amazon.com/Algorithms-4th-Robert-Sedgewick/dp/032157351X)
-* [Algorithms Part I, Robert Sedgewick](https://www.youtube.com/watch?v=YIFWCpquoS8&list=PLUX6FBiUa2g4YWs6HkkCpXL6ru02i7y3Q)
-* [Algorithms Part II, Robert Sedgewick](https://www.youtube.com/watch?v=0B745ZPxdBE&list=PLqD_OdMOd_6YixsHkd9f4sNdof4IhIima)
 * [Khan Academy: Algorithms](https://www.khanacademy.org/computing/computer-science/algorithms)
 * [Wikibooks Data Structures](https://en.wikibooks.org/wiki/Data_Structures)
+
+### Videos
+
+* [Algorithms Part I, Robert Sedgewick](https://www.youtube.com/watch?v=YIFWCpquoS8&list=PLUX6FBiUa2g4YWs6HkkCpXL6ru02i7y3Q)
+* [Algorithms Part II, Robert Sedgewick](https://www.youtube.com/watch?v=0B745ZPxdBE&list=PLqD_OdMOd_6YixsHkd9f4sNdof4IhIima)
 
 ## <a name="thank-you"></a> Thank You
 
