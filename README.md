@@ -42,11 +42,12 @@ with the following goals:
   * [Stack :lock:](datastructures/stack.go)
   * [Set](datastructures/set.go)
   * [Binary Search Tree](datastructures/bst.go)
-* Algorithms: :floppy_disk: = in-place, :recycle: = recursive
+* Algorithms: :floppy_disk: = in-place, :arrows_clockwise: = iterative, :recycle: = recursive
   * [Fisher-Yates Shuffle :floppy_disk:](algorithms/basics.go)
   * [Reverse :floppy_disk:](algorithms/basics.go)
   * [Binary Search :floppy_disk:](algorithms/basics.go)
-  * [IsPalindrome :recycle:](algorithms/basics.go)
+  * [IsPalindrome :arrows_clockwise: :recycle:](algorithms/basics.go)
+  * [Fibonacci :arrows_clockwise: :recycle:](algorithms/fibonacci.go)
 * [Resources](#resources)
 * [Thank you](#thank-you)
 
