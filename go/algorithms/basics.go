@@ -12,6 +12,7 @@ func main() {
 // Shuffle does a Fisher-Yates shuffle
 //
 // Time O(n)
+// Space O(1)
 func Shuffle(slice []int) {
 	// base case: cannot shuffle empty or 1-element slice
 	if len(slice) <= 1 {
@@ -27,6 +28,7 @@ func Shuffle(slice []int) {
 // Reverse a slice of int
 //
 // Time O(n)
+// Space O(1)
 func Reverse(s []int) {
 	// base case: cannot reverse empty or 1-element slice
 	if len(s) <= 1 {
@@ -43,6 +45,7 @@ func Reverse(s []int) {
 // already sorted.
 //
 // Time O(log n)
+// Space O(1)
 func BinarySearch(slice []int, search int) int {
 	min, max := 0, len(slice)-1
 	for min <= max {
@@ -64,6 +67,8 @@ func BinarySearch(slice []int, search int) int {
 
 // IsPalindrome returns true if the given string is a palindrome ignoring whitespace,
 // punctuation, & case sensitivity
+// Time O(n)
+// Space O(1)
 func IsPalindrome(str string) bool {
 	n := len(str)
 
@@ -87,6 +92,8 @@ func IsPalindrome(str string) bool {
 }
 
 // IsPalindromeRecursive does the same as IsPalindrome using recursion
+// Time O(n)
+// Space O(1)
 func IsPalindromeRecursive(str string) bool {
 	var fn func(s string) bool
 
