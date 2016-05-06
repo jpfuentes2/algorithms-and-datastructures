@@ -19,7 +19,7 @@ func TestFibonacci(t *testing.T) {
 	}
 
 	for _, tc := range cases {
-		assert.Equal(t, int(tc.Expected), FibonacciRecursive(int(tc.N)))
+		assert.Equal(t, tc.Expected, FibonacciRecursive(tc.N))
 		assert.Equal(t, tc.Expected, Fibonacci(tc.N))
 	}
 }
