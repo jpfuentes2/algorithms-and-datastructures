@@ -36,17 +36,17 @@ with the following goals:
 ## TOC
 
 * [Why Go?](#why-go)
-* Data Structures
+* Data Structures: :snowflake: = immutable, :lock: = thread-safe
   * [SinglyLinkedList](datastructures/list.go)
-  * [Queue](datastructures/queue.go)
-  * [Stack](datastructures/stack.go)
+  * [Queue :lock:](datastructures/queue.go)
+  * [Stack :lock:](datastructures/stack.go)
   * [Set](datastructures/set.go)
   * [Binary Search Tree](datastructures/bst.go)
-* Algorithms
-  * [Fisher-Yates Shuffle](algorithms/basics.go)
-  * [In-place Reverse](algorithms/basics.go)
-  * [Binary Search](algorithms/basics.go)
-  * [IsPalindrome: Iterative/Recursive](algorithms/basics.go)
+* Algorithms: :floppy_disk: = in-place, :recycle: = recursive
+  * [Fisher-Yates Shuffle :floppy_disk:](algorithms/basics.go)
+  * [Reverse :floppy_disk:](algorithms/basics.go)
+  * [Binary Search :floppy_disk:](algorithms/basics.go)
+  * [IsPalindrome :recycle:](algorithms/basics.go)
 * [Resources](#resources)
 * [Thank you](#thank-you)
 

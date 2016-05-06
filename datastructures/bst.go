@@ -45,7 +45,7 @@ func (n *BSTreeNode) Insert(key int) error {
 			n.Left.Insert(key)
 		}
 	} else {
-		// if key is > n.key then insert to left
+		// if key is > n.key then insert to right
 		if n.Right == nil {
 			n.Right = &BSTreeNode{Key: key}
 		} else {
