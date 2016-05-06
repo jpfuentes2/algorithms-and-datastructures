@@ -9,6 +9,9 @@ import (
 var (
 	// ErrDuplicateKey is an error when a duplicate key is inserted
 	ErrDuplicateKey = errors.New("Cannot insert duplicate key")
+
+	// ErrNodeNotFound is an error when the node is not found in the tree
+	ErrNodeNotFound = errors.New("Cannot find node in tree")
 )
 
 // Visitor is a type alias for an anon fn receiving a node
@@ -163,23 +166,22 @@ func (t *BSTree) Insert(key int) (err error) {
 
 // Contains tests for existence of the search key
 func (t *BSTree) Contains(key int) bool {
-	var recursiveSearch func(key int, node *BSTreeNode) *BSTreeNode
-
-	recursiveSearch = func(key int, node *BSTreeNode) *BSTreeNode {
+	var recurse func(key int, node *BSTreeNode) *BSTreeNode
+	recurse = func(key int, node *BSTreeNode) *BSTreeNode {
 		if node == nil {
 			return nil
 		}
 
 		if key < node.Key {
-			return recursiveSearch(key, node.Left)
+			return recurse(key, node.Left)
 		} else if key > node.Key {
-			return recursiveSearch(key, node.Right)
+			return recurse(key, node.Right)
 		} else {
 			return node
 		}
 	}
 
-	return recursiveSearch(key, t.Root) != nil
+	return recurse(key, t.Root) != nil
 }
 
 // Height gives the height of this tree
@@ -200,5 +202,7 @@ func (t *BSTree) Height() int {
 	return recurse(t.Root)
 }
 
-func (t *BSTree) Remove() {
+// Remove removes the node from the tree
+func (t *BSTree) Remove(n *BSTreeNode) error {
+	return ErrNodeNotFound
 }
