@@ -43,6 +43,8 @@ with the following goals:
   * [Set](datastructures/set.go)
   * [Binary Search Tree](datastructures/bst.go)
 * Algorithms: :floppy_disk: = in-place, :arrows_clockwise: = iterative, :recycle: = recursive
+  * Sorting
+    * [Insertion :floppy_disk:](algorithms/insertion_sort.go)
   * [Fisher-Yates Shuffle :floppy_disk:](algorithms/basics.go)
   * [Reverse :floppy_disk:](algorithms/basics.go)
   * [Binary Search :floppy_disk:](algorithms/basics.go)

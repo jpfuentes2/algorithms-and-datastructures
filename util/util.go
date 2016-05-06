@@ -1,5 +1,7 @@
 package datastructures
 
+import "math"
+
 // Max gives the max of a vs b
 //
 // Max(a,b) =  | a if a > b
@@ -20,4 +22,21 @@ func Min(a, b int) int {
 		return a
 	}
 	return b
+}
+
+// Range creates a slice of integers inclusively [a,b]
+func Range(start, end int) []int {
+	n := int(math.Abs(float64(end - start)))
+	// base case: if start > end then empty slice
+	if n < 0 {
+		return []int{}
+	}
+
+	ints := make([]int, n+1)
+	j := start
+	for i := 0; i <= n; i++ {
+		ints[i] = j
+		j++
+	}
+	return ints
 }
