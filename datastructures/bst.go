@@ -3,7 +3,7 @@ package datastructures
 import (
 	"errors"
 
-	"github.com/jpfuentes2/algorithms-and-datastructures/go/util"
+	util "../util"
 )
 
 var (
@@ -194,7 +194,7 @@ func (t *BSTree) Height() int {
 			return -1
 		}
 
-		return util.max(recurse(n.Left), recurse(n.Right)) + 1
+		return util.Max(recurse(n.Left), recurse(n.Right)) + 1
 	}
 
 	return recurse(t.Root)

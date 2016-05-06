@@ -1,6 +1,7 @@
 package datastructures
 
-func max(a, b int) int {
+// Max gives the max of a vs b
+func Max(a, b int) int {
 	if a >= b {
 		return a
 	}

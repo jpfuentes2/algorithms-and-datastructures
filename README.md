@@ -37,15 +37,16 @@ with the following goals:
 
 * [Why Go?](#why-go)
 * Data Structures
-  * [SinglyLinkedList](go/datastructures/list.go)
-  * [Queue](go/datastructures/queue.go)
-  * [Stack](go/datastructures/stack.go)
-  * [Set](go/datastructures/set.go)
+  * [SinglyLinkedList](datastructures/list.go)
+  * [Queue](datastructures/queue.go)
+  * [Stack](datastructures/stack.go)
+  * [Set](datastructures/set.go)
+  * [Binary Search Tree](datastructures/bst.go)
 * Algorithms
-  * [Fisher-Yates Shuffle](go/algorithms/basics.go)
-  * [In-place Reverse](go/algorithms/basics.go)
-  * [Binary Search](go/algorithms/basics.go)
-  * [IsPalindrome: Iterative/Recursive](go/algorithms/basics.go)
+  * [Fisher-Yates Shuffle](algorithms/basics.go)
+  * [In-place Reverse](algorithms/basics.go)
+  * [Binary Search](algorithms/basics.go)
+  * [IsPalindrome: Iterative/Recursive](algorithms/basics.go)
 * [Resources](#resources)
 * [Thank you](#thank-you)
 
