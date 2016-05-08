@@ -27,7 +27,6 @@ func Min(a, b int) int {
 // Range creates a slice of integers inclusively [a,b]
 func Range(start, end int) []int {
 	n := int(math.Abs(float64(end - start)))
-	// base case: if start > end then empty slice
 	if n < 0 {
 		return []int{}
 	}
