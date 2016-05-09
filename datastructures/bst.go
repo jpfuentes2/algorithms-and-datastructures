@@ -3,7 +3,7 @@ package datastructures
 import (
 	"errors"
 
-	util "../util"
+	"github.com/jpfuentes2/algorithms-and-datastructures/util"
 )
 
 var (
