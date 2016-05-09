@@ -128,26 +128,38 @@ func (t *BSTree) PostOrder(fn Visitor) {
 
 // Min gives the minimum key of this tree
 func (t *BSTree) Min() *BSTreeNode {
-	node := t.Root
-	for node != nil {
+	if t.IsEmpty() {
+		return nil
+	}
+
+	var recurse func(node *BSTreeNode) *BSTreeNode
+	recurse = func(node *BSTreeNode) *BSTreeNode {
 		if node.Left == nil {
 			return node
 		}
-		node = node.Left
+
+		return recurse(node.Left)
 	}
-	return nil
+
+	return recurse(t.Root)
 }
 
 // Max gives the maximum key of this tree
 func (t *BSTree) Max() *BSTreeNode {
-	node := t.Root
-	for node != nil {
+	if t.IsEmpty() {
+		return nil
+	}
+
+	var recurse func(node *BSTreeNode) *BSTreeNode
+	recurse = func(node *BSTreeNode) *BSTreeNode {
 		if node.Right == nil {
 			return node
 		}
-		node = node.Right
+
+		return recurse(node.Right)
 	}
-	return nil
+
+	return recurse(t.Root)
 }
 
 // Insert adds the key as a node. error if tried to add a duplicate key
