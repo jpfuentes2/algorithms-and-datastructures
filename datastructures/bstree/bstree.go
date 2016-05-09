@@ -1,4 +1,4 @@
-package datastructures
+package bstree
 
 import (
 	"errors"
@@ -15,42 +15,42 @@ var (
 )
 
 // Visitor is a type alias for an anon fn receiving a node
-type Visitor func(*BSTreeNode)
+type Visitor func(*Node)
 
-// BSTreeNode is a binary search tree node
-type BSTreeNode struct {
-	Left  *BSTreeNode
+// Node is a binary search tree node
+type Node struct {
+	Left  *Node
 	Key   int
-	Right *BSTreeNode
+	Right *Node
 }
 
-// BSTree is a binary search tree
-type BSTree struct {
-	Root *BSTreeNode
+// Tree is a binary search tree
+type Tree struct {
+	Root *Node
 	Size int
 }
 
-// NewBSTree creates a new BinarySearchTree
-func NewBSTree() *BSTree {
-	return &BSTree{}
+// New creates a new BinarySearchTree
+func New() *Tree {
+	return &Tree{}
 }
 
 // Insert inserts the key into this sub-tree. error if the key is a duplicate
-func (n *BSTreeNode) Insert(key int) error {
+func (n *Node) Insert(key int) error {
 	if key == n.Key {
 		// do not allow duplicates
 		return ErrDuplicateKey
 	} else if key < n.Key {
 		// if key is < n.key then insert to left
 		if n.Left == nil {
-			n.Left = &BSTreeNode{Key: key}
+			n.Left = &Node{Key: key}
 		} else {
 			n.Left.Insert(key)
 		}
 	} else {
 		// if key is > n.key then insert to right
 		if n.Right == nil {
-			n.Right = &BSTreeNode{Key: key}
+			n.Right = &Node{Key: key}
 		} else {
 			n.Right.Insert(key)
 		}
@@ -60,23 +60,23 @@ func (n *BSTreeNode) Insert(key int) error {
 }
 
 // IsEmpty returns true if the root is nil
-func (t *BSTree) IsEmpty() bool {
+func (t *Tree) IsEmpty() bool {
 	return t.Len() == 0
 }
 
 // Len is the number of nodes in this tree
-func (t *BSTree) Len() int {
+func (t *Tree) Len() int {
 	return t.Size
 }
 
 // PreOrder walks the tree pre-order
-func (t *BSTree) PreOrder(fn Visitor) {
+func (t *Tree) PreOrder(fn Visitor) {
 	if t.IsEmpty() {
 		return
 	}
 
 	var recurse Visitor
-	recurse = func(n *BSTreeNode) {
+	recurse = func(n *Node) {
 		if n == nil {
 			return
 		}
@@ -89,13 +89,13 @@ func (t *BSTree) PreOrder(fn Visitor) {
 }
 
 // InOrder walks the tree in-order
-func (t *BSTree) InOrder(fn Visitor) {
+func (t *Tree) InOrder(fn Visitor) {
 	if t.IsEmpty() {
 		return
 	}
 
 	var recurse Visitor
-	recurse = func(n *BSTreeNode) {
+	recurse = func(n *Node) {
 		if n == nil {
 			return
 		}
@@ -108,13 +108,13 @@ func (t *BSTree) InOrder(fn Visitor) {
 }
 
 // PostOrder walks the tree in post-order
-func (t *BSTree) PostOrder(fn Visitor) {
+func (t *Tree) PostOrder(fn Visitor) {
 	if t.IsEmpty() {
 		return
 	}
 
 	var recurse Visitor
-	recurse = func(n *BSTreeNode) {
+	recurse = func(n *Node) {
 		if n == nil {
 			return
 		}
@@ -127,13 +127,13 @@ func (t *BSTree) PostOrder(fn Visitor) {
 }
 
 // Min gives the minimum key of this tree
-func (t *BSTree) Min() *BSTreeNode {
+func (t *Tree) Min() *Node {
 	if t.IsEmpty() {
 		return nil
 	}
 
-	var recurse func(node *BSTreeNode) *BSTreeNode
-	recurse = func(node *BSTreeNode) *BSTreeNode {
+	var recurse func(node *Node) *Node
+	recurse = func(node *Node) *Node {
 		if node.Left == nil {
 			return node
 		}
@@ -145,13 +145,13 @@ func (t *BSTree) Min() *BSTreeNode {
 }
 
 // Max gives the maximum key of this tree
-func (t *BSTree) Max() *BSTreeNode {
+func (t *Tree) Max() *Node {
 	if t.IsEmpty() {
 		return nil
 	}
 
-	var recurse func(node *BSTreeNode) *BSTreeNode
-	recurse = func(node *BSTreeNode) *BSTreeNode {
+	var recurse func(node *Node) *Node
+	recurse = func(node *Node) *Node {
 		if node.Right == nil {
 			return node
 		}
@@ -163,9 +163,9 @@ func (t *BSTree) Max() *BSTreeNode {
 }
 
 // Insert adds the key as a node. error if tried to add a duplicate key
-func (t *BSTree) Insert(key int) (err error) {
+func (t *Tree) Insert(key int) (err error) {
 	if t.IsEmpty() {
-		t.Root = &BSTreeNode{Key: key}
+		t.Root = &Node{Key: key}
 		t.Size++
 		return
 	}
@@ -177,9 +177,9 @@ func (t *BSTree) Insert(key int) (err error) {
 }
 
 // Contains tests for existence of the search key
-func (t *BSTree) Contains(key int) bool {
-	var recurse func(key int, node *BSTreeNode) *BSTreeNode
-	recurse = func(key int, node *BSTreeNode) *BSTreeNode {
+func (t *Tree) Contains(key int) bool {
+	var recurse func(key int, node *Node) *Node
+	recurse = func(key int, node *Node) *Node {
 		if node == nil {
 			return nil
 		}
@@ -197,13 +197,13 @@ func (t *BSTree) Contains(key int) bool {
 }
 
 // Height gives the height of this tree
-func (t *BSTree) Height() int {
+func (t *Tree) Height() int {
 	if t.IsEmpty() {
 		return 0
 	}
 
-	var recurse func(n *BSTreeNode) int
-	recurse = func(n *BSTreeNode) int {
+	var recurse func(n *Node) int
+	recurse = func(n *Node) int {
 		if n == nil {
 			return -1
 		}
@@ -215,6 +215,6 @@ func (t *BSTree) Height() int {
 }
 
 // Remove removes the node from the tree
-func (t *BSTree) Remove(n *BSTreeNode) error {
+func (t *Tree) Remove(n *Node) error {
 	return ErrNodeNotFound
 }

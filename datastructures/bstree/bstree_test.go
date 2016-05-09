@@ -1,4 +1,4 @@
-package datastructures
+package bstree
 
 import (
 	"testing"
@@ -6,24 +6,24 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func defaultTree(t *testing.T) *BSTree {
+func defaultTree(t *testing.T) *Tree {
 	ints := []int{5, 4, 6, 3, 7, 2, 8}
-	tree := NewBSTree()
+	tree := New()
 	for _, key := range ints {
 		tree.Insert(key)
 	}
 	return tree
 }
 
-func TestEmptyBSTree(t *testing.T) {
-	tree := NewBSTree()
+func TestEmptyTree(t *testing.T) {
+	tree := New()
 	assert.True(t, tree.IsEmpty())
 	assert.Equal(t, 0, tree.Len())
 	assert.Nil(t, tree.Min())
 	assert.Nil(t, tree.Max())
 }
 
-func TestBSTree(t *testing.T) {
+func TestTree(t *testing.T) {
 	tree := defaultTree(t)
 
 	assert.Equal(t, 7, tree.Len())
@@ -36,8 +36,8 @@ func TestBSTree(t *testing.T) {
 	assert.Equal(t, 8, tree.Max().Key)
 }
 
-func TestBSTreeDuplicateInsert(t *testing.T) {
-	tree := NewBSTree()
+func TestTreeDuplicateInsert(t *testing.T) {
+	tree := New()
 
 	err := tree.Insert(5)
 	assert.NoError(t, err)
@@ -47,38 +47,38 @@ func TestBSTreeDuplicateInsert(t *testing.T) {
 	assert.Equal(t, 1, tree.Len())
 }
 
-func TestBSTreeOrdering(t *testing.T) {
+func TestTreeOrdering(t *testing.T) {
 	order := []int{}
 	tree := defaultTree(t)
 
-	tree.InOrder(func(node *BSTreeNode) {
+	tree.InOrder(func(node *Node) {
 		order = append(order, node.Key)
 	})
 	assert.Equal(t, order, []int{2, 3, 4, 5, 6, 7, 8})
 
 	order = order[:0]
-	tree.PreOrder(func(node *BSTreeNode) {
+	tree.PreOrder(func(node *Node) {
 		order = append(order, node.Key)
 	})
 	assert.Equal(t, order, []int{5, 4, 3, 2, 6, 7, 8})
 
 	order = order[:0]
-	tree.PostOrder(func(node *BSTreeNode) {
+	tree.PostOrder(func(node *Node) {
 		order = append(order, node.Key)
 	})
 	assert.Equal(t, order, []int{2, 3, 4, 8, 7, 6, 5})
 }
 
-func TestBSTreeRemove(t *testing.T) {
+func TestTreeRemove(t *testing.T) {
 	_ = defaultTree(t)
 	assert.Fail(t, ":(")
 }
 
-func TestBSTreeHeight(t *testing.T) {
+func TestTreeHeight(t *testing.T) {
 	tree := defaultTree(t)
 	assert.Equal(t, 3, tree.Height())
 
-	tree = NewBSTree()
+	tree = New()
 	tree.Insert(1)
 	assert.Equal(t, 0, tree.Height())
 }

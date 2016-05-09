@@ -41,7 +41,7 @@ with the following goals:
   * [Queue :lock:](datastructures/queue.go)
   * [Stack :lock:](datastructures/stack.go)
   * [Set](datastructures/set.go)
-  * [Binary Search Tree](datastructures/bst.go)
+  * [Binary Search Tree](datastructures/bstree/bstree.go)
 * Algorithms: :floppy_disk: = in-place, :arrows_clockwise: = iterative, :recycle: = recursive
   * Sorting
     * [Selection :floppy_disk: :arrows_clockwise:](algorithms/selection_sort.go)
