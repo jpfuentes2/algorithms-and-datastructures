@@ -32,8 +32,34 @@ func TestTree(t *testing.T) {
 	assert.False(t, tree.Contains(1))
 	assert.False(t, tree.Contains(9))
 
-	assert.Equal(t, 2, tree.Min().Key)
-	assert.Equal(t, 8, tree.Max().Key)
+}
+
+func TestTreeMinMax(t *testing.T) {
+	cases := []struct {
+		ints []int
+		min  int
+		max  int
+	}{
+		{[]int{5}, 5, 5},
+		{[]int{5, 6}, 5, 6},
+		{[]int{6, 5}, 5, 6},
+		{[]int{}, 0, 0},
+	}
+
+	for _, tc := range cases {
+		tree := New()
+		for _, i := range tc.ints {
+			tree.Insert(i)
+		}
+
+		if len(tc.ints) > 0 {
+			assert.Equal(t, tc.min, tree.Min().Key)
+			assert.Equal(t, tc.max, tree.Max().Key)
+		} else {
+			assert.Nil(t, tree.Min())
+			assert.Nil(t, tree.Max())
+		}
+	}
 }
 
 func TestTreeDuplicateInsert(t *testing.T) {
@@ -70,8 +96,23 @@ func TestTreeOrdering(t *testing.T) {
 }
 
 func TestTreeRemove(t *testing.T) {
-	_ = defaultTree(t)
-	assert.Fail(t, ":(")
+	// removing from an empty tree or nil node is a noop
+	tree := New()
+	assert.Error(t, tree.Remove(&Node{}))
+	tree.Insert(1)
+	assert.Error(t, tree.Remove(nil))
+
+	tree = defaultTree(t)
+	// remove leaf nodes
+	assert.NoError(t, tree.Remove(tree.Min()))
+	assert.NoError(t, tree.Remove(tree.Max()))
+
+	// tree = defaultTree(t)
+	// // remove leaf nodes
+	// assert.NoError(t, tree.Remove(tree.Min()))
+	// assert.NoError(t, tree.Remove(tree.Max()))
+
+	// assert.Fail(t, ":(")
 }
 
 func TestTreeHeight(t *testing.T) {

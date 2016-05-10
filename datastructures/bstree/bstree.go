@@ -59,6 +59,11 @@ func (n *Node) Insert(key int) error {
 	return nil
 }
 
+// IsLeaf returns true if this node has no children
+func (n *Node) IsLeaf() bool {
+	n.Left == nil && n.Right == nil
+}
+
 // IsEmpty returns true if the root is nil
 func (t *Tree) IsEmpty() bool {
 	return t.Len() == 0
@@ -178,6 +183,12 @@ func (t *Tree) Insert(key int) (err error) {
 
 // Contains tests for existence of the search key
 func (t *Tree) Contains(key int) bool {
+	_, err := t.Get(key)
+	return err == nil
+}
+
+// Get gets the node with the given key. error if not found
+func (t *Tree) Get(key int) (*Node, error) {
 	var recurse func(key int, node *Node) *Node
 	recurse = func(key int, node *Node) *Node {
 		if node == nil {
@@ -193,7 +204,11 @@ func (t *Tree) Contains(key int) bool {
 		}
 	}
 
-	return recurse(key, t.Root) != nil
+	if node := recurse(key, t.Root); node != nil {
+		return node, nil
+	}
+
+	return nil, ErrNodeNotFound
 }
 
 // Height gives the height of this tree
@@ -214,7 +229,42 @@ func (t *Tree) Height() int {
 	return recurse(t.Root)
 }
 
-// Remove removes the node from the tree
-func (t *Tree) Remove(n *Node) error {
+// Remove removes the key from the tree. error if not found or tree is empty
+func (t *Tree) Remove(key int) error {
+	if t.IsEmpty() {
+		return ErrNodeNotFound
+	}
+
+	var recurse func(key int, node *Node) *Node
+	recurse = func(key int, node *Node) *Node {
+		if node == nil {
+			return nil
+		}
+
+		if key < node.Key {
+			node.Left = recurse(key, node.Left)
+		} else if key > node.Key {
+			node.Right = recurse(key, node.Right)
+		} else {
+			if node.Left == nil {
+				return node.Right
+			}
+			if node.Right == nil {
+				return node.Left
+			}
+
+			t := node
+			node = min(t.Right)
+			node.Right = deleteMin(t.Right)
+		}
+
+		return node
+	}
+
+	if node := recurse(key, t.Root); node != nil {
+		t.Size--
+		return
+	}
+
 	return ErrNodeNotFound
 }
