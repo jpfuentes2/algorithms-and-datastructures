@@ -19,20 +19,15 @@ type Visitor func(*Node)
 
 // Node is a binary search tree node
 type Node struct {
-	Left  *Node
+	left  *Node
 	Key   int
-	Right *Node
+	right *Node
 }
 
 // Tree is a binary search tree
 type Tree struct {
-	Root *Node
-	Size int
-}
-
-// New creates a new BinarySearchTree
-func New() *Tree {
-	return &Tree{}
+	root *Node
+	size int
 }
 
 // Insert inserts the key into this sub-tree. error if the key is a duplicate
@@ -42,17 +37,17 @@ func (n *Node) Insert(key int) error {
 		return ErrDuplicateKey
 	} else if key < n.Key {
 		// if key is < n.key then insert to left
-		if n.Left == nil {
-			n.Left = &Node{Key: key}
+		if n.left == nil {
+			n.left = &Node{Key: key}
 		} else {
-			n.Left.Insert(key)
+			n.left.Insert(key)
 		}
 	} else {
 		// if key is > n.key then insert to right
-		if n.Right == nil {
-			n.Right = &Node{Key: key}
+		if n.right == nil {
+			n.right = &Node{Key: key}
 		} else {
-			n.Right.Insert(key)
+			n.right.Insert(key)
 		}
 	}
 
@@ -61,7 +56,12 @@ func (n *Node) Insert(key int) error {
 
 // IsLeaf returns true if this node has no children
 func (n *Node) IsLeaf() bool {
-	n.Left == nil && n.Right == nil
+	return n.left == nil && n.right == nil
+}
+
+// New creates a new BinarySearchTree
+func New() *Tree {
+	return &Tree{}
 }
 
 // IsEmpty returns true if the root is nil
@@ -71,7 +71,7 @@ func (t *Tree) IsEmpty() bool {
 
 // Len is the number of nodes in this tree
 func (t *Tree) Len() int {
-	return t.Size
+	return t.size
 }
 
 // PreOrder walks the tree pre-order
@@ -86,11 +86,11 @@ func (t *Tree) PreOrder(fn Visitor) {
 			return
 		}
 		fn(n)
-		recurse(n.Left)
-		recurse(n.Right)
+		recurse(n.left)
+		recurse(n.right)
 	}
 
-	recurse(t.Root)
+	recurse(t.root)
 }
 
 // InOrder walks the tree in-order
@@ -104,12 +104,12 @@ func (t *Tree) InOrder(fn Visitor) {
 		if n == nil {
 			return
 		}
-		recurse(n.Left)
+		recurse(n.left)
 		fn(n)
-		recurse(n.Right)
+		recurse(n.right)
 	}
 
-	recurse(t.Root)
+	recurse(t.root)
 }
 
 // PostOrder walks the tree in post-order
@@ -123,12 +123,12 @@ func (t *Tree) PostOrder(fn Visitor) {
 		if n == nil {
 			return
 		}
-		recurse(n.Left)
-		recurse(n.Right)
+		recurse(n.left)
+		recurse(n.right)
 		fn(n)
 	}
 
-	recurse(t.Root)
+	recurse(t.root)
 }
 
 // Min gives the minimum key of this tree
@@ -137,16 +137,15 @@ func (t *Tree) Min() *Node {
 		return nil
 	}
 
-	var recurse func(node *Node) *Node
-	recurse = func(node *Node) *Node {
-		if node.Left == nil {
-			return node
-		}
+	return t.min(t.root)
+}
 
-		return recurse(node.Left)
+func (t *Tree) min(node *Node) *Node {
+	if node.left == nil {
+		return node
 	}
 
-	return recurse(t.Root)
+	return t.min(node.left)
 }
 
 // Max gives the maximum key of this tree
@@ -157,26 +156,26 @@ func (t *Tree) Max() *Node {
 
 	var recurse func(node *Node) *Node
 	recurse = func(node *Node) *Node {
-		if node.Right == nil {
+		if node.right == nil {
 			return node
 		}
 
-		return recurse(node.Right)
+		return recurse(node.right)
 	}
 
-	return recurse(t.Root)
+	return recurse(t.root)
 }
 
 // Insert adds the key as a node. error if tried to add a duplicate key
 func (t *Tree) Insert(key int) (err error) {
 	if t.IsEmpty() {
-		t.Root = &Node{Key: key}
-		t.Size++
+		t.root = &Node{Key: key}
+		t.size++
 		return
 	}
 
-	if err = t.Root.Insert(key); err == nil {
-		t.Size++
+	if err = t.root.Insert(key); err == nil {
+		t.size++
 	}
 	return
 }
@@ -196,15 +195,15 @@ func (t *Tree) Get(key int) (*Node, error) {
 		}
 
 		if key < node.Key {
-			return recurse(key, node.Left)
+			return recurse(key, node.left)
 		} else if key > node.Key {
-			return recurse(key, node.Right)
+			return recurse(key, node.right)
 		} else {
 			return node
 		}
 	}
 
-	if node := recurse(key, t.Root); node != nil {
+	if node := recurse(key, t.root); node != nil {
 		return node, nil
 	}
 
@@ -223,48 +222,65 @@ func (t *Tree) Height() int {
 			return -1
 		}
 
-		return util.Max(recurse(n.Left), recurse(n.Right)) + 1
+		return util.Max(recurse(n.left), recurse(n.right)) + 1
 	}
 
-	return recurse(t.Root)
+	return recurse(t.root)
+}
+
+func (t *Tree) deleteMin(node *Node) *Node {
+	if node.left == nil {
+		return node.right
+	}
+	node.left = t.deleteMin(node.left)
+	return node
 }
 
 // Remove removes the key from the tree. error if not found or tree is empty
-func (t *Tree) Remove(key int) error {
+func (t *Tree) Remove(key int) (*Node, error) {
 	if t.IsEmpty() {
-		return ErrNodeNotFound
+		return nil, ErrNodeNotFound
 	}
 
-	var recurse func(key int, node *Node) *Node
-	recurse = func(key int, node *Node) *Node {
-		if node == nil {
-			return nil
+	if node := t.remove(key, t.root); node != nil {
+		t.size--
+		return node, nil
+	}
+
+	return nil, ErrNodeNotFound
+}
+
+func (t *Tree) remove(key int, node *Node) *Node {
+	if node == nil {
+		return nil
+	}
+
+	if key < node.Key {
+		removed := t.remove(key, node.left)
+		node.left = removed
+		node = removed
+	} else if key > node.Key {
+		removed := t.remove(key, node.right)
+		node.right = removed
+		node = removed
+	} else {
+		// remove a leaf node straight-up
+		if node.IsLeaf() {
+			return node
 		}
 
-		if key < node.Key {
-			node.Left = recurse(key, node.Left)
-		} else if key > node.Key {
-			node.Right = recurse(key, node.Right)
-		} else {
-			if node.Left == nil {
-				return node.Right
-			}
-			if node.Right == nil {
-				return node.Left
-			}
-
-			t := node
-			node = min(t.Right)
-			node.Right = deleteMin(t.Right)
+		if node.left == nil {
+			return node.right
+		} else if node.right == nil {
+			return node.left
 		}
 
-		return node
+		tmp := node
+		node = t.min(tmp.right)
+		node.right = t.deleteMin(tmp.right)
+		node.left = tmp.left
+		return tmp
 	}
 
-	if node := recurse(key, t.Root); node != nil {
-		t.Size--
-		return
-	}
-
-	return ErrNodeNotFound
+	return node
 }

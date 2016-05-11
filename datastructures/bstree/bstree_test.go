@@ -6,8 +6,27 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
+/*
+
+ The default BST is perfectly balanced
+
+        5
+       / \
+      3   7
+     / \ / \
+    2  4 6  8
+*/
+
 func defaultTree(t *testing.T) *Tree {
-	ints := []int{5, 4, 6, 3, 7, 2, 8}
+	ints := []int{5, 3, 4, 2, 7, 6, 8}
+	tree := New()
+	for _, key := range ints {
+		tree.Insert(key)
+	}
+	return tree
+}
+
+func makeTree(ints []int) *Tree {
 	tree := New()
 	for _, key := range ints {
 		tree.Insert(key)
@@ -86,38 +105,58 @@ func TestTreeOrdering(t *testing.T) {
 	tree.PreOrder(func(node *Node) {
 		order = append(order, node.Key)
 	})
-	assert.Equal(t, order, []int{5, 4, 3, 2, 6, 7, 8})
+	assert.Equal(t, order, []int{5, 3, 2, 4, 7, 6, 8})
 
 	order = order[:0]
 	tree.PostOrder(func(node *Node) {
 		order = append(order, node.Key)
 	})
-	assert.Equal(t, order, []int{2, 3, 4, 8, 7, 6, 5})
+	assert.Equal(t, order, []int{2, 4, 3, 6, 8, 7, 5})
 }
 
 func TestTreeRemove(t *testing.T) {
-	// removing from an empty tree or nil node is a noop
-	tree := New()
-	assert.Error(t, tree.Remove(&Node{}))
-	tree.Insert(1)
-	assert.Error(t, tree.Remove(nil))
+	dtree := defaultTree(t)
+	defaultMin := dtree.Min()
+	defaultMax := dtree.Max()
 
-	tree = defaultTree(t)
-	// remove leaf nodes
-	assert.NoError(t, tree.Remove(tree.Min()))
-	assert.NoError(t, tree.Remove(tree.Max()))
+	cases := []struct {
+		name      string
+		tree      *Tree
+		removeKey int
+		err       error
+	}{
+		{"empty", makeTree([]int{}), 1, ErrNodeNotFound},
+		{"not-found-one-key", makeTree([]int{1}), 2, ErrNodeNotFound},
+		{"root-one-key", makeTree([]int{1}), 1, nil},
+		{"leaf-min-default", defaultTree(t), defaultMin.Key, nil},
+		{"leaf-max-default", defaultTree(t), defaultMax.Key, nil},
+		{"default-left", defaultTree(t), 3, nil},
+		{"default-right", defaultTree(t), 7, nil},
+		{"default-right", defaultTree(t), 7, nil},
+	}
 
-	// tree = defaultTree(t)
-	// // remove leaf nodes
-	// assert.NoError(t, tree.Remove(tree.Min()))
-	// assert.NoError(t, tree.Remove(tree.Max()))
+	for _, tc := range cases {
+		origSize := tc.tree.Len()
+		removed, err := tc.tree.Remove(tc.removeKey)
 
-	// assert.Fail(t, ":(")
+		assert.Equal(t, tc.err, err, tc.name)
+
+		if tc.err == nil {
+			assert.Equal(t, tc.removeKey, removed.Key, tc.name)
+			assert.NoError(t, err, tc.name)
+			// if we expected to remove a node then we should have -1 size
+			assert.Equal(t, origSize-1, tc.tree.Len(), tc.name)
+		} else {
+			assert.Nil(t, removed, tc.name)
+			assert.Error(t, err, tc.name)
+			assert.Equal(t, origSize, tc.tree.Len(), tc.name)
+		}
+	}
 }
 
 func TestTreeHeight(t *testing.T) {
 	tree := defaultTree(t)
-	assert.Equal(t, 3, tree.Height())
+	assert.Equal(t, 2, tree.Height())
 
 	tree = New()
 	tree.Insert(1)
