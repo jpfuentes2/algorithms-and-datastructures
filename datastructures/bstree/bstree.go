@@ -285,7 +285,7 @@ func (t *Tree) remove(key int, node *Node) *Node {
 
 		tmp := node
 
-		// avoid Hibbard deletion degradation by randomly deleting successor/predecessor
+		// Hibbard deletion: reduce degradation speed by randomly choosing successor/predecessor
 		if rand.Intn(2) == 1 {
 			node = t.max(tmp.left)
 			node.left = t.deleteMax(tmp.left)
