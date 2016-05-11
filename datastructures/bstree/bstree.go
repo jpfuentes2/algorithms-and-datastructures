@@ -2,6 +2,8 @@ package bstree
 
 import (
 	"errors"
+	"math/rand"
+	"time"
 
 	"github.com/jpfuentes2/algorithms-and-datastructures/util"
 )
@@ -13,6 +15,10 @@ var (
 	// ErrNodeNotFound is an error when the node is not found in the tree
 	ErrNodeNotFound = errors.New("Cannot find node in tree")
 )
+
+func init() {
+	rand.Seed(time.Now().UTC().UnixNano())
+}
 
 // Visitor is a type alias for an anon fn receiving a node
 type Visitor func(*Node)
@@ -136,7 +142,6 @@ func (t *Tree) Min() *Node {
 	if t.IsEmpty() {
 		return nil
 	}
-
 	return t.min(t.root)
 }
 
@@ -144,7 +149,6 @@ func (t *Tree) min(node *Node) *Node {
 	if node.left == nil {
 		return node
 	}
-
 	return t.min(node.left)
 }
 
@@ -153,20 +157,17 @@ func (t *Tree) Max() *Node {
 	if t.IsEmpty() {
 		return nil
 	}
-
-	var recurse func(node *Node) *Node
-	recurse = func(node *Node) *Node {
-		if node.right == nil {
-			return node
-		}
-
-		return recurse(node.right)
-	}
-
-	return recurse(t.root)
+	return t.max(t.root)
 }
 
-// Insert adds the key as a node. error if tried to add a duplicate key
+func (t *Tree) max(node *Node) *Node {
+	if node.right == nil {
+		return node
+	}
+	return t.max(node.right)
+}
+
+// Insert adds the key as a new node. error if tried to add a duplicate key
 func (t *Tree) Insert(key int) (err error) {
 	if t.IsEmpty() {
 		t.root = &Node{Key: key}
@@ -236,6 +237,14 @@ func (t *Tree) deleteMin(node *Node) *Node {
 	return node
 }
 
+func (t *Tree) deleteMax(node *Node) *Node {
+	if node.right == nil {
+		return node.left
+	}
+	node.right = t.deleteMax(node.right)
+	return node
+}
+
 // Remove removes the key from the tree. error if not found or tree is empty
 func (t *Tree) Remove(key int) (*Node, error) {
 	if t.IsEmpty() {
@@ -264,23 +273,35 @@ func (t *Tree) remove(key int, node *Node) *Node {
 		node.right = removed
 		node = removed
 	} else {
-		// remove a leaf node straight-up
-		if node.IsLeaf() {
-			return node
-		}
+		// found our node with given key
 
-		if node.left == nil {
-			return node.right
+		if node.IsLeaf() {
+			return node // when leaf just remove the link
+		} else if node.left == nil {
+			return node.right // swap parent link of us w/ the right node
 		} else if node.right == nil {
-			return node.left
+			return node.left // swap parent link of us w/ the left node
 		}
 
 		tmp := node
-		node = t.min(tmp.right)
-		node.right = t.deleteMin(tmp.right)
-		node.left = tmp.left
+
+		// avoid Hibbard deletion degradation by randomly deleting successor/predecessor
+		if rand.Intn(2) == 1 {
+			node = t.max(tmp.left)
+			node.left = t.deleteMax(tmp.left)
+			node.right = tmp.right
+		} else {
+			node = t.min(tmp.right)
+			node.right = t.deleteMin(tmp.right)
+			node.left = tmp.left
+		}
+
 		return tmp
 	}
 
 	return node
+}
+
+func (t *Tree) IsBalanced() bool {
+	return false
 }
