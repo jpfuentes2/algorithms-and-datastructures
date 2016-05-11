@@ -93,25 +93,31 @@ func TestTreeDuplicateInsert(t *testing.T) {
 }
 
 func TestTreeOrdering(t *testing.T) {
-	order := []int{}
-	tree := defaultTree(t)
+	cases := []struct {
+		name     string
+		expected []int
+	}{
+		{"in-order", []int{2, 3, 4, 5, 6, 7, 8}},
+		{"pre-order", []int{5, 3, 2, 4, 7, 6, 8}},
+		{"post-order", []int{2, 4, 3, 6, 8, 7, 5}},
+	}
 
-	tree.InOrder(func(node *Node) {
-		order = append(order, node.Key)
-	})
-	assert.Equal(t, order, []int{2, 3, 4, 5, 6, 7, 8})
+	for _, tc := range cases {
+		tree := defaultTree(t)
+		actual := make([]int, 0, tree.Len())
+		collect := func(n *Node) { actual = append(actual, n.Key) }
 
-	order = order[:0]
-	tree.PreOrder(func(node *Node) {
-		order = append(order, node.Key)
-	})
-	assert.Equal(t, order, []int{5, 3, 2, 4, 7, 6, 8})
+		switch tc.name {
+		case "in-order":
+			tree.InOrder(collect)
+		case "pre-order":
+			tree.PreOrder(collect)
+		case "post-order":
+			tree.PostOrder(collect)
+		}
 
-	order = order[:0]
-	tree.PostOrder(func(node *Node) {
-		order = append(order, node.Key)
-	})
-	assert.Equal(t, order, []int{2, 4, 3, 6, 8, 7, 5})
+		assert.Equal(t, tc.expected, actual)
+	}
 }
 
 func TestTreeRemove(t *testing.T) {
