@@ -95,9 +95,9 @@ func IsPalindrome(str string) bool {
 // Time O(n)
 // Space O(1)
 func IsPalindromeRecursive(str string) bool {
-	var fn func(s string) bool
+	var recurse func(s string) bool
 
-	fn = func(s string) bool {
+	recurse = func(s string) bool {
 		n := len(s)
 		// base case: empty or single char string are palindromes
 		if n == 0 || n == 1 {
@@ -105,9 +105,9 @@ func IsPalindromeRecursive(str string) bool {
 		} else if s[0] != s[n-1] {
 			return false
 		} else {
-			return fn(s[1 : n-1])
+			return recurse(s[1 : n-1])
 		}
 	}
 
-	return fn(str)
+	return recurse(str)
 }
