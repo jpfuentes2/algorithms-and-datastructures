@@ -48,7 +48,7 @@ with the following goals:
     * [Insertion :floppy_disk: :arrows_clockwise:](algorithms/insertion_sort.go)
   * [Fisher-Yates Shuffle :floppy_disk:](algorithms/basics.go)
   * [Reverse :arrows_clockwise: :floppy_disk:](algorithms/basics.go)
-  * [Binary Search :arrows_clockwise: :floppy_disk:](algorithms/basics.go)
+  * [Binary Search arrows_clockwise: :recycle: :floppy_disk:](algorithms/binary_search.go)
   * [IsPalindrome :arrows_clockwise: :recycle:](algorithms/basics.go)
   * [Fibonacci :arrows_clockwise: :recycle:](algorithms/fibonacci.go)
 * [Resources](#resources)

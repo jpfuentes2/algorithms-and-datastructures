@@ -51,11 +51,15 @@ func TestBinarySearch(t *testing.T) {
 		{nums, 5, 4},
 		{nums, 0, -1},
 		{nums, 6, -1},
+		{[]int{}, 6, -1},
 	}
 
 	for _, tc := range cases {
 		actual := BinarySearch(tc.Haystack, tc.Needle)
+		actualRecursive := BinarySearchRecursive(tc.Haystack, tc.Needle)
+
 		assert.Equal(t, tc.Expected, actual)
+		assert.Equal(t, tc.Expected, actualRecursive)
 	}
 }
 
