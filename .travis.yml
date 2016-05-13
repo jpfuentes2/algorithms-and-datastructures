@@ -1,8 +1,6 @@
 language: go
 
-go:
-  - 1.5
-  - tip
+go: 1.5
 
 install:
   - go get github.com/modocache/gover
