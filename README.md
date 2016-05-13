@@ -1,4 +1,4 @@
-# Algorithms & Data Structures
+# Algorithms & Data Structures [![BuildStatus](https://travis-ci.org/jpfuentes2/algorithms-and-datastructures.svg?branch=master)](https://travis-ci.org/jpfuentes2/algorithms-and-datastructures)
 
 I never took a Computer Science course in university since my major was
 Philosophy and my goal was to be a lawyer. I dropped out after two years.
