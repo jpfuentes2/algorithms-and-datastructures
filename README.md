@@ -30,7 +30,8 @@ with the following goals:
 4. Implement common/interesting/fundamental algorithms/data structures.
    This, of course, is [practice testing](http://digitalpromise.org/2015/02/07/five-learning-strategies-that-work/#practicetesting),
    another highly effective learning technique when the stakes are low.
-5. Try to provide sufficient documentation, linkes, and resources so
+5. >= 90% unit test coverage.
+6. Try to provide sufficient documentation, links, and resources so
    others can learn from this code.
 
 ## TOC
