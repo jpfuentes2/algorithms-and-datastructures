@@ -4,8 +4,8 @@ import "math"
 
 // Max gives the max of a vs b
 //
-// Max(a,b) =  | a if a > b
-//             | b otherwise
+// 	Max(a,b) =  | a if a > b
+// 	            | b otherwise
 func Max(a, b int) int {
 	if a > b {
 		return a
@@ -15,8 +15,8 @@ func Max(a, b int) int {
 
 // Min gives the min of a vs b
 //
-// Min(a,b) =  | a if a < b
-//             | b otherwise
+// 	Min(a,b) =  | a if a < b
+// 	            | b otherwise
 func Min(a, b int) int {
 	if a < b {
 		return a
@@ -24,7 +24,7 @@ func Min(a, b int) int {
 	return b
 }
 
-// Range creates a slice of integers inclusively [a,b]
+// Range creates a slice of integers inclusively (closed interval) [a,b]
 func Range(start, end int) []int {
 	n := int(math.Abs(float64(end - start)))
 	if n < 0 {

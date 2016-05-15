@@ -7,6 +7,7 @@ package algorithms
    F(n) = | 1                if n = 1
           | F(n-1) + F(n-2)  if n > 1
 */
+type Fibonacci func(n int64) int64
 
 // FibonacciRecursive computes the nth Fibonacci number
 // Time O(2^n)

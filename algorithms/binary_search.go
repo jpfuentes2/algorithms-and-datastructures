@@ -3,8 +3,7 @@ package algorithms
 // BinarySearch does a binary search. It assumes the slice is
 // already sorted.
 //
-// Time O(log n)
-// Space O(1)
+// Time O(log n) |  Space O(1)
 func BinarySearch(slice []int, search int) int {
 	min, max := 0, len(slice)-1
 	for min <= max {
@@ -24,8 +23,7 @@ func BinarySearch(slice []int, search int) int {
 
 // BinarySearchRecursive does the same as BinarySearch except recursively.
 //
-// Time O(log n)
-// Space O(1)
+// Time O(log n) | Space O(1)
 func BinarySearchRecursive(slice []int, search int) int {
 	var recurse func(min, max int) int
 
