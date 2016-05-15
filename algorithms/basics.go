@@ -9,10 +9,9 @@ func main() {
 	rand.Seed(time.Now().UTC().UnixNano())
 }
 
-// Shuffle does a Fisher-Yates shuffle
+// Shuffle does a Fisher-Yates shuffle.
 //
-// Time O(n)
-// Space O(1)
+// Time O(n) | Space O(1)
 func Shuffle(slice []int) {
 	// base case: cannot shuffle empty or 1-element slice
 	if len(slice) <= 1 {
@@ -25,10 +24,9 @@ func Shuffle(slice []int) {
 	}
 }
 
-// Reverse a slice of int
+// Reverse a slice of int iteratively & in-place.
 //
-// Time O(n)
-// Space O(1)
+// Time O(n) | Space O(1)
 func Reverse(s []int) {
 	// base case: cannot reverse empty or 1-element slice
 	if len(s) <= 1 {
@@ -42,13 +40,13 @@ func Reverse(s []int) {
 }
 
 // IsPalindrome returns true if the given string is a palindrome ignoring whitespace,
-// punctuation, & case sensitivity
-// Time O(n)
-// Space O(1)
+// punctuation, & case sensitivity.
+//
+// Time O(n) | Space O(1)
 func IsPalindrome(str string) bool {
 	n := len(str)
 
-	// base case: empty or single char string are palindromes
+	// base case: empty and single char string are palindromes
 	if n == 0 || n == 1 {
 		return true
 	}
@@ -67,9 +65,9 @@ func IsPalindrome(str string) bool {
 	return true
 }
 
-// IsPalindromeRecursive does the same as IsPalindrome using recursion
-// Time O(n)
-// Space O(1)
+// IsPalindromeRecursive does the same as IsPalindrome using recursion.
+//
+// Time O(n) | Space O(1)
 func IsPalindromeRecursive(str string) bool {
 	var recurse func(s string) bool
 

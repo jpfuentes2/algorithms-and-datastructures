@@ -1,4 +1,4 @@
-package algorithms
+package sorting
 
 import (
 	"sort"
@@ -6,7 +6,8 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	util "../util"
+	"github.com/jpfuentes2/algorithms-and-datastructures/algorithms"
+	"github.com/jpfuentes2/algorithms-and-datastructures/util"
 )
 
 func TestSelectionSort(t *testing.T) {
@@ -28,7 +29,7 @@ func TestSelectionSort(t *testing.T) {
 		original := make([]int, len(tc.Ints))
 
 		copy(original, tc.Ints)
-		Shuffle(tc.Ints)
+		algorithms.Shuffle(tc.Ints)
 		copy(mine, tc.Ints)
 		copy(theirs, tc.Ints)
 
