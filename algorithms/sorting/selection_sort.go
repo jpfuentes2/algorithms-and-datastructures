@@ -1,20 +1,21 @@
 package sorting
 
-/*
-   Selection sort
-
-   http://www.sorting-algorithms.com/selection-sort
-   https://en.wikipedia.org/wiki/Selection_sort
-   http://visualgo.net/sorting
-
-   - Not Stable
-   - In-place
-   - Space O(1)
-   - Time (all cases): O(n^2)
-   - Not adaptive
-*/
-
-// SelectionSort sorts the slice using selection sort algorithm
+// SelectionSort ...
+//
+//  Not Stable
+//  In-place
+//  Space O(1)
+//  Time (all cases): O(n^2)
+//  Not adaptive
+//
+// Resources
+//
+// http://www.sorting-algorithms.com/selection-sort
+//
+// https://en.wikipedia.org/wiki/Selection_sort
+//
+// http://visualgo.net/sorting
+//
 func SelectionSort(ints []int) {
 	n := len(ints)
 	for i := 0; i < n-1; i++ {
