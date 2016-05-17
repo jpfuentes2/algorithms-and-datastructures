@@ -19,20 +19,24 @@ programmer.
 I created this repository to implement common algorithms/data structures
 with the following goals:
 
-1. Have *fun*.
-2. Learn, learn, learn. The code in this repository is solely for learning
+0. Have *fun*.
+1. LEARN. The code in this repository is solely for learning
    and self-practice only; it is not intended for production.
-3. Read as much as I can stomach using varied & multiple
+2. Read as much as I can stomach<sup>0</sup> using varied & multiple
    [resources](#resources) so that I may fully understand the material
    by learning from myriad teachers. This can be used successfully as
    [distributed practice](http://digitalpromise.org/2015/02/07/five-learning-strategies-that-work/#distributedpractice),
    a highly effective learning technique.
-4. Implement common/interesting/fundamental algorithms/data structures.
+
+   > <sup>0</sup> Some books are to be tasted, others to be swallowed, and some few to be chewed and digested: that is, some books are to be read only in parts, others to be read, but not curiously, and some few to be read wholly, and with diligence and attention.
+   >
+   > -- Francis Bacon
+3. Implement common/interesting/fundamental algorithms/data structures.
    This, of course, is [practice testing](http://digitalpromise.org/2015/02/07/five-learning-strategies-that-work/#practicetesting),
    another highly effective learning technique when the stakes are low.
-5. >= 90% unit test coverage.
-6. Try to provide sufficient documentation, links, and resources so
-   others can learn from this code.
+4. >= 90% test coverage.
+5. Provide abundant documentation, links, and resources so
+   others can learn from this work.
 
 ## TOC
 
